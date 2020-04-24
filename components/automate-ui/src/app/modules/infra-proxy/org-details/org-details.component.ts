@@ -46,6 +46,7 @@ export class OrgDetailsComponent implements OnInit, OnDestroy {
       this.previousRoute$.subscribe((params: any) => {
         if ( params.path.includes('roles') ) {
           this.cookbooksTab = false;
+          this.clientsTab = false;
           this.environmentsTab = false;
           this.dataBagsTab = false;
           this.rolesTab = true;
@@ -53,8 +54,17 @@ export class OrgDetailsComponent implements OnInit, OnDestroy {
 
         if ( params.path.includes('environments') ) {
           this.cookbooksTab = false;
+          this.clientsTab = false;
           this.rolesTab = false;
           this.environmentsTab = true;
+        }
+
+        if ( params.path.includes('clients') ) {
+          this.cookbooksTab = false;
+          this.environmentsTab = false;
+          this.dataBagsTab = false;
+          this.rolesTab = false;
+          this.clientsTab = true;
         }
       });
     }
