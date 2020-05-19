@@ -19,3 +19,8 @@ export const getAllStatus = createSelector(
   notificationRuleState,
   (state) => state.getAllStatus
 );
+
+export const deleteStatus = createSelector(
+  notificationRuleState,
+  (state) => state.deleteStatus
+);

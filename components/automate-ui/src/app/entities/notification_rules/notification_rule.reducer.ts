@@ -5,20 +5,23 @@ import { NotificationRuleActionTypes, NotificationRuleActions } from './notifica
 import { NotificationRule } from './notification_rule.model';
 
 export interface NotificationRuleEntityState extends EntityState<NotificationRule> {
-  rulesStatus:  EntityStatus;
+  rulesStatus: EntityStatus;
   getAllStatus: EntityStatus;
+  deleteStatus: EntityStatus;
 }
 
 const GET_ALL_STATUS = 'getAllStatus';
+const DELETE_STATUS = 'deleteStatus';
 
 export const notificationRuleEntityAdapter:
   EntityAdapter<NotificationRule> = createEntityAdapter<NotificationRule>({
-    selectId: (rule: NotificationRule) => rule.name
+  selectId: (rule: NotificationRule) => rule.name
 });
 
 export const NotificationRuleEntityInitialState: NotificationRuleEntityState =
   notificationRuleEntityAdapter.getInitialState(<NotificationRuleEntityState>{
-    getAllStatus: EntityStatus.notLoaded
+    getAllStatus: EntityStatus.notLoaded,
+    deleteStatus: EntityStatus.notLoaded,
   });
 
 export function notificationRuleEntityReducer(
@@ -37,6 +40,16 @@ export function notificationRuleEntityReducer(
 
     case NotificationRuleActionTypes.GET_ALL_FAILURE:
       return set(GET_ALL_STATUS, EntityStatus.loadingFailure, state);
+
+    case NotificationRuleActionTypes.DELETE:
+      return set(DELETE_STATUS, EntityStatus.loading, state);
+
+    case NotificationRuleActionTypes.DELETE_SUCCESS:
+      return set(DELETE_STATUS, EntityStatus.loadingSuccess,
+        notificationRuleEntityAdapter.removeOne(action.payload.rule.name, state));
+
+    case NotificationRuleActionTypes.DELETE_FAILURE:
+      return set(DELETE_STATUS, EntityStatus.loadingFailure, state);
 
     default:
       return state;
