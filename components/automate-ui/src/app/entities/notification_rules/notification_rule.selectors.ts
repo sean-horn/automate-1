@@ -20,6 +20,16 @@ export const getAllStatus = createSelector(
   (state) => state.getAllStatus
 );
 
+export const saveStatus = createSelector(
+  notificationRuleState,
+  (state) => state.saveStatus
+);
+
+export const saveError = createSelector(
+  notificationRuleState,
+  (state) => state.saveError
+);
+
 export const deleteStatus = createSelector(
   notificationRuleState,
   (state) => state.deleteStatus
