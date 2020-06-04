@@ -19,9 +19,15 @@ export interface RuleInterface {
 export class NotificationRule implements RuleInterface {
 
   AlertTypeLabels = {
-    CCRFailure: 'Chef Infra Client run failures',
-    ComplianceFailure: 'InSpec scan failures'
+    CCRFailure: 'Infra Client run failures',
+    ComplianceFailure: 'InSpec compliance scan failures'
   };
+
+  TargetTypeLabels = {
+    SlackAlert: 'Slack',
+    WebhookAlert: 'Webhook',
+    ServiceNowAlert: 'ServiceNow'
+  }
 
   constructor(
     public id: string,
@@ -65,6 +71,10 @@ export class NotificationRule implements RuleInterface {
 
   public getAlertTypeKeys(): string[] {
     return Object.keys(this.AlertTypeLabels);
+  }
+
+  public getTargetTypeKeys(): string[] {
+    return Object.keys(this.TargetTypeLabels);
   }
 
   public toRequest(): Object {
