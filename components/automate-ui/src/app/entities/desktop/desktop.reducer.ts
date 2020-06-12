@@ -53,7 +53,7 @@ export const desktopEntityInitialState: DesktopEntityState = {
   },
   getDesktopsFilter: {
     currentPage: 1,
-    pageSize: 10,
+    pageSize: 20,
     sortingField: Terms.DesktopName,
     sortingOrder: SortOrder.Ascending,
     terms: []
@@ -175,6 +175,11 @@ export function desktopEntityReducer(state: DesktopEntityState = desktopEntityIn
       return pipe(
         set('getDesktopsFilter.sortingField', action.payload.term),
         set('getDesktopsFilter.sortingOrder', order)
+      )(state);
+
+    case DesktopActionTypes.UPDATE_DESKTOPS_FILTER_PAGE_SIZE:
+      return pipe(
+        set('getDesktopsFilter.pageSize', action.payload.pageSize)
       )(state);
 
     default:
